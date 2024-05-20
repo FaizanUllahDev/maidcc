@@ -14,8 +14,10 @@ To get started with Maidcc, you will need to:
 2. Open the project in Android Studio or Visual Studio Code.
 3. Install the Flutter SDK [3.19.2] and Dart plugin (if you haven't already).
 4. Run flutter pub get to install the project dependencies.
-5. Connect an Android or iOS device or emulator to your computer.
-6. Click on the Run button in Android Studio or Visual Studio Code to build and install the app on your device or emulator.
+5. For Unit testing setups [flutter pub run build_runner build]
+6. FILE name: [unit_test.dart]
+7. Connect an Android or iOS device or emulator to your computer.
+8. Click on the Run button in Android Studio or Visual Studio Code to build and install the app on your device or emulator.
 
 # **Usage**
 
