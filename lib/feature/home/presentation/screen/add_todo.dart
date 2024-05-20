@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maidcc/core/color/app_colors.dart';
 import 'package:maidcc/core/enums/enums.dart';
@@ -58,14 +59,16 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
           children: [
             Form(
               key: formKey,
-              child: CommonTextFieldWidget(
-                hintText: 'Todo',
-                maxLength: 100,
-                controller: controller,
-                suffixIcon: const Icon(Icons.task_alt_sharp),
-                validation: (str) {
-                  return str?.isEmpty == true ? 'Todo is required' : null;
-                },
+              child: FadeInDown(
+                child: CommonTextFieldWidget(
+                  hintText: 'Todo',
+                  maxLength: 100,
+                  controller: controller,
+                  suffixIcon: const Icon(Icons.task_alt_sharp),
+                  validation: (str) {
+                    return str?.isEmpty == true ? 'Todo is required' : null;
+                  },
+                ),
               ),
             ),
             const Gap(),
@@ -109,24 +112,26 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 if (state.status == StatusEnum.loading) {
                   return const CircularProgressIndicator();
                 }
-                return CommonElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      TodoModel newModel = TodoModel(
-                        widget.model?.id ?? 0,
-                        controller.text,
-                        !widget.isEditing
-                            ? isActive
-                            : widget.model?.completed ?? false,
-                        widget.model?.userId ?? Utils.currentUser.id ?? 0,
-                      );
-                      widget.isEditing
-                          ? await cubit.updateTodo(newModel)
-                          : await cubit.addTodo(newModel);
-                      Navigator.pop(context);
-                    }
-                  },
-                  title: widget.isEditing ? 'Update' : 'Add',
+                return BounceIn(
+                  child: CommonElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        TodoModel newModel = TodoModel(
+                          widget.model?.id ?? 0,
+                          controller.text,
+                          !widget.isEditing
+                              ? isActive
+                              : widget.model?.completed ?? false,
+                          widget.model?.userId ?? Utils.currentUser.id ?? 0,
+                        );
+                        widget.isEditing
+                            ? await cubit.updateTodo(newModel)
+                            : await cubit.addTodo(newModel);
+                        Navigator.pop(context);
+                      }
+                    },
+                    title: widget.isEditing ? 'Update' : 'Add',
+                  ),
                 );
               },
             ),

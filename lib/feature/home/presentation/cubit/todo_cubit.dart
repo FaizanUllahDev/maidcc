@@ -39,23 +39,21 @@ class TodoCubit extends BaseCubit<TodoState> {
     }
     try {
       emitLoading();
-      if (!(await networkInfo.isConnected)) {
-        final data = preferencesUtil.getPreferencesData(
-          AppKeyConstants.todosData,
+      final data = preferencesUtil.getPreferencesData(
+        AppKeyConstants.todosData,
+      );
+      if (data != null && data.toString() != "") {
+        Utils.debug((data is String).toString());
+        final mapData = TodoResponseModel.fromJson(data);
+        emit(
+          state.copyWith(
+            todoResponseModel: mapData,
+            status: StatusEnum.success,
+          ),
         );
-        if (data != null && data.toString() != "") {
-          Utils.debug((data is String).toString());
-          final mapData = TodoResponseModel.fromJson(data);
-          emit(
-            state.copyWith(
-              todoResponseModel: mapData,
-              status: StatusEnum.success,
-            ),
-          );
-          emitSuccess();
+        emitSuccess();
 
-          return;
-        }
+        return;
       }
       final response = await repository.getTodos(
         TodoRequestModel(

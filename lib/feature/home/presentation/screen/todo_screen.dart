@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maidcc/core/color/app_colors.dart';
 import 'package:maidcc/core/enums/enums.dart';
@@ -41,11 +42,13 @@ class _TodoScreenState extends State<TodoScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: FloatingActionButton(
-                onPressed: () {
-                  AppRouter.push(AppRouter.addTodo, extra: [cubit]);
-                },
-                child: const Icon(Icons.add),
+              child: FadeInRight(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    AppRouter.push(AppRouter.addTodo, extra: [cubit]);
+                  },
+                  child: const Icon(Icons.add),
+                ),
               ),
             ),
           ],
@@ -99,10 +102,7 @@ class _TodoScreenState extends State<TodoScreen> {
               state.todoResponseModel.todos.isEmpty) {
             return const Center(child: Text(' No Task'));
           }
-          return ListView.separated(
-            separatorBuilder: (ctx, index) {
-              return const Divider();
-            },
+          return ListView.builder(
             itemCount: state.todoResponseModel.todos.length,
             itemBuilder: (ctx, index) {
               if (!cubit.willNotLoadMore &&
@@ -110,7 +110,7 @@ class _TodoScreenState extends State<TodoScreen> {
                 return const Center(child: CircularProgressIndicator());
               }
               final todo = state.todoResponseModel.todos[index];
-              return ListBodyWidget(todo);
+              return ListBodyWidget(todo, index);
             },
           );
         }),
