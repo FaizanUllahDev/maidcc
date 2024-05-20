@@ -8,10 +8,6 @@ Maidcc is a new Flutter project that provides a platform for users to connect wi
 
 To get started with Maidcc, you will need to:
 
-Flutter : 3.19.2
-
-
-
 1. Clone the repository to your local machine.
 2. Open the project in Android Studio or Visual Studio Code.
 3. Install the Flutter SDK [3.19.2] and Dart plugin (if you haven't already).
