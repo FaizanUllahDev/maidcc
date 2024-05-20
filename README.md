@@ -3,6 +3,8 @@
 
 Maidcc is a new Flutter project that provides a platform for users to connect with and hire maids for cleaning services.
 
+But my task was to built Task Management App
+
 
 # **Getting Started**
 
